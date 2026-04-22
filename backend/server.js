@@ -2,24 +2,38 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-// Configuraciones esenciales
-app.use(cors()); // Permiso para que el navegador entre
-app.use(express.json()); // Permiso para leer datos JSON
+app.use(cors()); 
+app.use(express.json()); 
 
-// La ruta que recibirá tu nombre
-app.post('/api/nombre', (req, res) => {
-    console.log("¡Dato recibido en el servidor!", req.body);
-    const nombreRecibido = req.body.nombre;
+// NUEVA RUTA: Registro de usuarios
+app.post('/api/registro', (req, res) => {
+    console.log("\n--- NUEVO INTENTO DE REGISTRO ---");
+    console.log("Datos recibidos:", req.body);
+    
+    const { nombre, email, password } = req.body;
 
-    res.json({
-        mensaje: "¡Conexión exitosa desde el Backend!",
-        tuNombre: nombreRecibido
+    // Validación de seguridad en el Backend
+    if (!nombre || !email || !password) {
+        console.log("❌ Registro fallido: Faltan datos.");
+        return res.status(400).json({
+            mensaje: "Datos incompletos. Revisa el formulario."
+        });
+    }
+
+    // Si todo está bien, simulamos el guardado
+    console.log(`✅ Usuario ${nombre} validado correctamente.`);
+
+    res.status(200).json({
+        mensaje: "¡Registro exitoso en StudyNest!",
+        usuario: {
+            nombre: nombre,
+            email: email
+        }
     });
 });
 
-// Usaremos el puerto 5000 para evitar bloqueos del 3000
 const PORT = 5000;
 app.listen(PORT, () => {
-    console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
-    console.log("Presiona Ctrl + C para detenerlo");
+    console.log(`🚀 Servidor backend de StudyNest encendido en el puerto ${PORT}`);
+    console.log("Esperando conexiones...");
 });
