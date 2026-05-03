@@ -53,6 +53,35 @@ async function enviarDatos() {
     }
 }
 
+async function iniciarSesion() {
+    const email = document.getElementById('emailLogin').value;
+    const password = document.getElementById('passwordLogin').value;
+    const caja = document.getElementById('respuestaLogin');
+
+    if (!email || !password) {
+        caja.innerHTML = "⚠️ Completa todos los campos";
+        return;
+    }
+
+    try {
+        const response = await fetch('http://localhost:5000/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            caja.innerHTML = `<span style="color: green;">✅ Bienvenido, ${data.usuario.nombre}</span>`;
+            // Aquí podrías redirigir a la página de materias después
+        } else {
+            caja.innerHTML = `<span style="color: red;">❌ ${data.mensaje}</span>`;
+        }
+    } catch (error) {
+        caja.innerHTML = "❌ Error al conectar con el servidor";
+    }
+}
 
 
 
