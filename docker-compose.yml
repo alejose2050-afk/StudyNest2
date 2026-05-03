@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  # Servidor de Base de Datos
+  db:
+    image: mysql:8.0
+    container_name: studynest_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: studynest_db
+      MYSQL_ROOT_PASSWORD: password123
+    ports:
+      - "3306:3306"
+
+  # Tu aplicación Node.js
+  app:
+    build: .
+    container_name: studynest_app
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - db
