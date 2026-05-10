@@ -2,20 +2,25 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Login - StudyNest</title>
+    <title>StudyNest - Login</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
-    <div class="box">
-        <h1>Entrar a StudyNest</h1>
+<body class="auth-wrapper">
+    <div class="box"> <h1>StudyNest</h1>
         <p>Tu nido de estudio te espera</p>
+        
         <div class="form-group">
-            <input type="email" id="emailLogin" placeholder="Correo universitario">
-            <input type="password" id="passwordLogin" placeholder="Tu contraseña">
+            <label>Correo Electrónico</label>
+            <input type="email" id="emailLogin" placeholder="tu@correo.com" required>
         </div>
-        <button onclick="iniciarSesion()">Ingresar</button>
-        <div id="respuestaLogin"></div>
+        <div class="form-group">
+            <label>Contraseña</label>
+            <input type="password" id="passwordLogin" placeholder="••••" required>
+        </div>
+        <button type="button" onclick="iniciarSesion()" class="btn-primary">Ingresar</button>
+        
+        <div id="respuestaLogin" style="margin-top: 15px; font-weight: bold;"></div>
     </div>
-    <script src="./js/app.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
